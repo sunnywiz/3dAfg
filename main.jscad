@@ -10,24 +10,26 @@ function uniontext(text) {
 
 
 function main() {
-   var triangle = CSG.cylinder({                      // object-oriented
+   var triangle = CSG.cylinder({                      
       start: [0, 0, 0],
-      end: [0, 0, 1],
-      radius: 10,                        // true cylinder
+      end: [0, 0, 15],
+      radius: 70,                        
       resolution: 3
     }).setColor([0,0,0.5]);
 
   var sphere = CSG.cylinder({ 
     start: [0, 0, -0.5],
-    end: [0, 0, 1.5],
-    radius: 3,                        // true cylinder
-    resolution: 20
+    end: [0, 0, 20.5],
+    radius: 27,                     
+    resolution: 80
   }).setColor([1,1,1]);
   
   var symbol = triangle.subtract(sphere);
   
-  // symbol = expand(0.2,4,symbol);
+  symbol = expand(1,8,symbol);
   
+  return symbol; 
+  /*
   var steps = uniontext("STEPS")
     .setColor([0,0,1])
     .scale([.05,.05,.5])
@@ -43,5 +45,5 @@ function main() {
     
   var recoveryThruSteps = steps.subtract(recovery2).union(recovery);
     
-  return recoveryThruSteps;
+  return recoveryThruSteps; */
 }
