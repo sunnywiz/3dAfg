@@ -1,16 +1,41 @@
 
-function uniontext(text) { 
+// returns text from 0,0 to X,Y,1 with width.  w=1 skinny w=5 fat
+function uniontext(text,width) { 
     var l = vector_text(0,0,text);   // l contains a list of polylines to be drawn
     var o = [];
     l.forEach(function(pl) {                   // pl = polyline (not closed)
-       o.push(rectangular_extrude(pl, {w: 2, h: 2}));   // extrude it to 3D
+       o.push(rectangular_extrude(pl, {w: width, h: 2 }));   // extrude it to 3D
     });
     return union(o);
 }
 
 
 function main() {
-   var triangle = CSG.cylinder({                      
+  
+  var T=120;  // width of triangle, mm across
+  var Z=15;   // height, in mm. 
+  
+  // three points of a triangle
+  var TA=[T/2,0];
+  var TB=[TA[0] + 120*cos(120), TA[1]+120*sin(120)]; 
+  var TC=[-T/2,0];  
+  
+  // center of circle 
+  var CO = [0,(tan(30)*T)/2];
+  var CR = T*0.2; 
+  
+  var triangle = polygon([TA,TB,TC]);
+  
+  triangle= linear_extrude({height: Z},triangle);
+  
+  var circul=circle({r: CR, center: true}).translate(CO);
+  circul = linear_extrude({height:Z},circul);
+  
+  return triangle.subtract(circul);
+  
+  //return uniontext("STEPS RECOVERY");
+  /*    
+  var triangle = CSG.cylinder({                      
       start: [0, 0, 0],
       end: [0, 0, 15],
       radius: 70,                        
@@ -29,7 +54,7 @@ function main() {
   symbol = expand(1,8,symbol);
   
   return symbol; 
-  /*
+  
   var steps = uniontext("STEPS")
     .setColor([0,0,1])
     .scale([.05,.05,.5])
