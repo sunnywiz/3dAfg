@@ -27,6 +27,7 @@ function main() {
 	var Z=15;   // height, in mm. 
 	var TH=10;   // height of text in mm.
     var overlap = 0.5; // how much text is sunk into triangle	
+	var expansion = 2;  // how much prettiness we added
 
 	// three points of a triangle
 	var TA=[T/2,0];
@@ -41,68 +42,67 @@ function main() {
 
 	triangle= linear_extrude({height: Z},triangle);
 
-	var circul=circle({r: CR, center: true}).translate(CO);
+	var circul=circle({r: CR, fn: 64, center: true}).translate(CO);
 	circul = linear_extrude({height:Z},circul);
 
 	var symbol =  triangle.subtract(circul).setColor([0,0,1]);
-
+	symbol = expand(expansion,8,symbol);
+	
 	var dashHelper = cube(1).scale([3,TH/2.5,Z/2]);
 	
 	var text; 
-	/* text = uniontext("RECOVERY - STEPS",5);
+	
+	text = uniontext("RECOVERY - STEPS",5);
 	text = rescale(text,T,TH,Z); 
 
 	// line up with bottom going TC to TA
 	var text1 = text
-		.translate([0,-TH+overlap,0])
+		.translate([0,-TH+overlap-expansion,0])
 		.translate(TC);   
 
 	var dashHelper1 = dashHelper
-		.translate([0.585*T,-TH/2,0])
+		.translate([0.585*T,-TH/2.5-expansion,0])
 		.translate(TC); 
 	
-	*/
-	/*
 	text = uniontext("SERVICE - CONCEPTS",5); 
 	text = rescale(text, T, TH, Z); 
 	
 	// line up with left going TC to TB
 	var text2 = text
-		.translate([0,-overlap,0])
+		.translate([0,-overlap+expansion,0])
 		.rotateZ(60)
 		.translate(TC); 
 	var dashHelper2 = dashHelper
-		.translate([0.435*T,0,0])
+		.translate([0.435*T,expansion,0])
 		.rotateZ(60)
 		.translate(TC); 
-	*/	
 	
 	text = uniontext("UNITY - TRADITIONS", 5); 
 	text = rescale(text, T, TH, Z); 
 	
 	var text3 = text
-		.translate([0,-overlap,0])
+		.translate([0,-overlap+expansion,0])
 		.rotateZ(-60)
 		.translate(TB); 
 	var dashHelper3 = dashHelper
-		.translate([0.4*T,0,0])
+		.translate([0.35*T,expansion,0])
 		.rotateZ(-60)
 		.translate(TB); 
 
-	/*
-	text = uniontext("UNOFFICIAL - created for fundraiser",3);
+	
+	text = uniontext("UNOFFICIAL - created for fundraiser",5);
 	text = rescale(text, T*0.7, TH/3, Z*0.2); 
 	var text4 = text
 		.rotateY(180)   // now facing the other way
-		.translate([T * 0.7 / 2, TH/2, Z*0.2])
+		.translate([T * 0.7 / 2, TH/2, Z*0.2 - expansion])
 		.setColor([1,1,1]); 
-	*/
-		
-	return [symbol,
-		// text1, dashHelper1, 
-		// text2, dashHelper2, 
-		text3, dashHelper3,
-		// text4
-		]; 
-  
+	
+	var result = 
+		union(
+			symbol,
+			text1,dashHelper1,
+			text2,dashHelper2,
+			text3,dashHelper3
+		).subtract(text4); 
+	return result; 
 }
