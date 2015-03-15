@@ -91,10 +91,10 @@ function main() {
 
 	
 	text = uniontext("2015 Kentucky Area Convention Fundraiser",5);
-	text = rescale(text, T*0.8, TH/1.5, Z*0.2); 
+	text = rescale(text, T*0.8, TH/1.5, Z*0.025); 
 	var text4 = text
 		.rotateY(180)   // now facing the other way
-		.translate([T * 0.8 / 2, TH/3, Z*0.2 - expansion])
+		.translate([T * 0.8 / 2, TH/3, Z*0.025 - expansion])
 		.setColor([1,1,1]); 
 	
 	var result = 
