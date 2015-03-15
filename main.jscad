@@ -48,53 +48,53 @@ function main() {
 	var symbol =  triangle.subtract(circul).setColor([0,0,1]);
 	symbol = expand(expansion,8,symbol);
 	
-	var dashHelper = cube(1).scale([3,TH/2.5,Z/2]);
+	var dashHelper = cube(1).scale([3,TH,Z/2]);
 	
 	var text; 
 	
 	text = uniontext("RECOVERY - STEPS",5);
-	text = rescale(text,T,TH,Z); 
+	text = rescale(text,T,TH,Z+expansion); 
 
 	// line up with bottom going TC to TA
 	var text1 = text
-		.translate([0,-TH+overlap-expansion,0])
+		.translate([0,-TH+overlap-expansion,-expansion])
 		.translate(TC);   
 
 	var dashHelper1 = dashHelper
-		.translate([0.585*T,-TH/2.5-expansion,0])
+		.translate([0.585*T,-TH/2-expansion-1,-expansion])
 		.translate(TC); 
 	
 	text = uniontext("SERVICE - CONCEPTS",5); 
-	text = rescale(text, T, TH, Z); 
+	text = rescale(text, T, TH, Z+expansion); 
 	
 	// line up with left going TC to TB
 	var text2 = text
-		.translate([0,-overlap+expansion,0])
+		.translate([0,-overlap+expansion,-expansion])
 		.rotateZ(60)
 		.translate(TC); 
 	var dashHelper2 = dashHelper
-		.translate([0.435*T,expansion,0])
+		.translate([0.435*T,-TH/2+expansion,-expansion])
 		.rotateZ(60)
 		.translate(TC); 
 	
 	text = uniontext("UNITY - TRADITIONS", 5); 
-	text = rescale(text, T, TH, Z); 
+	text = rescale(text, T, TH, Z+expansion); 
 	
 	var text3 = text
-		.translate([0,-overlap+expansion,0])
+		.translate([0,-overlap+expansion,-expansion])
 		.rotateZ(-60)
 		.translate(TB); 
 	var dashHelper3 = dashHelper
-		.translate([0.35*T,expansion,0])
+		.translate([0.35*T,-TH/2+expansion,-expansion])
 		.rotateZ(-60)
 		.translate(TB); 
 
 	
-	text = uniontext("UNOFFICIAL - created for fundraiser",5);
-	text = rescale(text, T*0.7, TH/3, Z*0.2); 
+	text = uniontext("2015 Kentucky Area Convention Fundraiser",5);
+	text = rescale(text, T*0.8, TH/1.5, Z*0.2); 
 	var text4 = text
 		.rotateY(180)   // now facing the other way
-		.translate([T * 0.7 / 2, TH/2, Z*0.2 - expansion])
+		.translate([T * 0.8 / 2, TH/3, Z*0.2 - expansion])
 		.setColor([1,1,1]); 
 	
 	var result = 
