@@ -60,7 +60,7 @@ function main() {
 
 	console.log("holes");
 	
-	var hole = circle({r: shapewaysEscapeHoleDiameter/2, fn:8, center:true});
+	var hole = circle({r: shapewaysEscapeHoleDiameter/2, fn:16, center:true});
     hole = linear_extrude({height:Z/2},hole); 	
 	var hole1 = hole.translate([(TA[0]+CO[0])/2,(TA[1]+CO[1])/2,-expansion]); 
 	var hole2 = hole.translate([(TB[0]+CO[0])/2,(TB[1]+CO[1])/2,-expansion]); 
